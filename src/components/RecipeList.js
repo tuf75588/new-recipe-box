@@ -1,5 +1,33 @@
 import React from 'react';
-
-export default (props) => {
-  return <ul>list</ul>;
+import Panel from 'react-bootstrap/lib/Panel';
+import PanelGroup from 'react-bootstrap/lib/PanelGroup';
+import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
+import ListGroup from 'react-bootstrap/lib/ListGroup';
+import Button from 'react-bootstrap/lib/Button';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+export default ({ recipes }) => {
+  return (
+    <PanelGroup accordion id='accordion-example'>
+      {recipes.map((recipe, index) => (
+        <Panel key={index} eventKey={index + 1}>
+          <Panel.Heading>
+            <Panel.Title toggle>{recipe.name}</Panel.Title>
+            <Panel.Body collapsible>
+              <ListGroup>
+                {recipe.ingredients.map((ing, indx) => (
+                  <div key={indx}>
+                    <ListGroupItem>{ing}</ListGroupItem>
+                  </div>
+                ))}
+              </ListGroup>
+              <ButtonToolbar>
+                <Button bsStyle='warning'>Edit Recipe</Button>
+                <Button bsStyle='danger'>Delete Recipe</Button>
+              </ButtonToolbar>
+            </Panel.Body>
+          </Panel.Heading>
+        </Panel>
+      ))}
+    </PanelGroup>
+  );
 };
