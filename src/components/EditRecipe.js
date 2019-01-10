@@ -5,12 +5,11 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-
-export default class AddRecipe extends React.Component {
+export default class EditRecipe extends React.Component {
   state = {
-    show: false,
-    name: '',
-    ingredients: ''
+    name: this.props.name || '',
+    ingredients: this.props.ingredients || '',
+    show: false
   };
   open = () => {
     this.setState({ show: true });
@@ -26,22 +25,15 @@ export default class AddRecipe extends React.Component {
       };
     });
   };
-  handleSubmit = () => {
-    this.props.addRecipe(this.state.name, this.state.ingredients);
-    this.setState({ show: false });
-  };
   render() {
+    const { show, name, ingredients } = this.state;
     return (
-      <div>
-        <Button bsStyle='primary' onClick={this.open}>
-          Add Recipe
-        </Button>
-        <Modal show={this.state.show} onHide={this.close}>
+      <>
+        <Modal show={show} onHide={this.close}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a new recipe!</Modal.Title>
+            <Modal.Title>Edit Recipe</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>All Fields Are Required.</p>
             <FormGroup>
               <FormControl
                 type='text'
@@ -61,14 +53,13 @@ export default class AddRecipe extends React.Component {
                 onChange={this.handleInputChange}
               />
             </FormGroup>
-            <ButtonToolbar>
-              <Button bsStyle='success' onClick={this.handleSubmit}>
-                Submit
-              </Button>
-            </ButtonToolbar>
+            <Button bsStyle='primary'>Update</Button>
           </Modal.Body>
         </Modal>
-      </div>
+        <Button bsStyle='warning' onClick={this.open}>
+          Edit This Recipe
+        </Button>
+      </>
     );
   }
 }

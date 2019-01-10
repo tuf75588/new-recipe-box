@@ -5,6 +5,7 @@ import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
 import ListGroup from 'react-bootstrap/lib/ListGroup';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
+import EditRecipe from './EditRecipe';
 export default ({ recipes }) => {
   return (
     <PanelGroup accordion id='accordion-example'>
@@ -21,7 +22,7 @@ export default ({ recipes }) => {
                 ))}
               </ListGroup>
               <ButtonToolbar>
-                <Button bsStyle='warning'>Edit Recipe</Button>
+                <EditRecipe name={recipe.name} ingredients={recipe.ingredients} />
                 <Button bsStyle='danger'>Delete Recipe</Button>
               </ButtonToolbar>
             </Panel.Body>
