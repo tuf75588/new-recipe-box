@@ -25,8 +25,13 @@ export default class EditRecipe extends React.Component {
       };
     });
   };
+  handleSubmit = () => {
+    this.props.update();
+    this.setState({ show: false });
+  };
   render() {
     const { show, name, ingredients } = this.state;
+    console.log(this.props);
     return (
       <>
         <Modal show={show} onHide={this.close}>
@@ -53,7 +58,9 @@ export default class EditRecipe extends React.Component {
                 onChange={this.handleInputChange}
               />
             </FormGroup>
-            <Button bsStyle='primary'>Update</Button>
+            <Button bsStyle='primary' onClick={this.handleSubmit}>
+              Update
+            </Button>
           </Modal.Body>
         </Modal>
         <Button bsStyle='warning' onClick={this.open}>

@@ -27,14 +27,16 @@ class RecipeContainer extends Component {
       };
     });
   };
-
+  handleUpdateRecipe = (name, ingredients) => {
+    console.log('updated!');
+  };
   render() {
     const { recipes } = this.state;
     return (
       <React.Fragment>
         <h1 className='logo'>Recipe Box</h1>
         <div className='container'>
-          <RecipeList recipes={recipes} />
+          <RecipeList recipes={recipes} updateRecipe={this.handleUpdateRecipe} />
           <AddRecipe addRecipe={this.handleAddRecipe} />
         </div>
       </React.Fragment>
