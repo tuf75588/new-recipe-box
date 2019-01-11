@@ -35,9 +35,14 @@ class RecipeContainer extends Component {
   };
   handleUpdateRecipe = (id, newRecipe) => {
     //! getting recipe we need to edit
-    const target = [...this.state.recipes].find((el) => el.id === id);
-    console.log({ target, newRecipe, id });
+    const target = [...this.state.recipes].findIndex((el) => el.id === id);
+    const newrecipes = [...this.state.recipes].map((element, index, arr) =>
+      index === target ? (element = newRecipe) : element
+    );
+    console.log(newrecipes);
+    this.setState({ recipes: newrecipes });
   };
+
   render() {
     const { recipes } = this.state;
     return (

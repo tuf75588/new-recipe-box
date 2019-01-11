@@ -29,9 +29,10 @@ export default class EditRecipe extends React.Component {
     const { name, ingredients } = this.state;
     const newRecipe = {
       name,
-      ingredients
+      ingredients: ingredients.split(',')
     };
     this.props.updateRecipe(newRecipe);
+    this.setState({ show: false });
   };
   render() {
     const { show } = this.state;
