@@ -27,15 +27,17 @@ export default class EditRecipe extends React.Component {
   };
   handleSubmit = () => {
     const { name, ingredients } = this.state;
+
     const newRecipe = {
       name,
-      ingredients: ingredients.split(',')
+      ingredients: Array.isArray(ingredients) ? ingredients : [...ingredients.split(',')]
     };
     this.props.updateRecipe(newRecipe);
     this.setState({ show: false });
   };
   render() {
     const { show } = this.state;
+
     return (
       <>
         <Modal show={show} onHide={this.close}>
