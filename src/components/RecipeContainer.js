@@ -44,6 +44,17 @@ class RecipeContainer extends Component {
 
     this.setState({ recipes: newrecipes });
   };
+  handleDelete = (recipeId) => {
+    const { recipes } = this.state;
+    const filteredList = recipes.filter((recipe) => {
+      return recipe.id !== recipeId;
+    });
+    this.setState((state, props) => {
+      return {
+        recipes: filteredList
+      };
+    });
+  };
 
   render() {
     const { recipes } = this.state;
@@ -51,7 +62,7 @@ class RecipeContainer extends Component {
       <React.Fragment>
         <h1 className='logo'>Recipe Box</h1>
         <div className='container'>
-          <RecipeList recipes={recipes} updateRecipe={this.handleUpdateRecipe} />
+          <RecipeList recipes={recipes} updateRecipe={this.handleUpdateRecipe} handleDelete={this.handleDelete} />
           <AddRecipe addRecipe={this.handleAddRecipe} />
         </div>
       </React.Fragment>

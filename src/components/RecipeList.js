@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/lib/ListGroup';
 import Button from 'react-bootstrap/lib/Button';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import EditRecipe from './EditRecipe';
-export default ({ recipes, updateRecipe }) => {
+export default ({ recipes, updateRecipe, handleDelete }) => {
   return (
     <PanelGroup accordion id='accordion-example'>
       {recipes.map((recipe, index) => (
@@ -28,7 +28,9 @@ export default ({ recipes, updateRecipe }) => {
                   recipes={recipes}
                   updateRecipe={updateRecipe.bind(this, recipe.id)}
                 />
-                <Button bsStyle='danger'>Delete Recipe</Button>
+                <Button bsStyle='danger' onClick={() => handleDelete(recipe.id)}>
+                  Delete Recipe
+                </Button>
               </ButtonToolbar>
             </Panel.Body>
           </Panel.Heading>

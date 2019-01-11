@@ -43,13 +43,7 @@ export default class AddRecipe extends React.Component {
           <Modal.Body>
             <p>All Fields Are Required.</p>
             <FormGroup>
-              <FormControl
-                type='text'
-                value={this.state.name}
-                placeholder='Recipe Name'
-                onChange={this.handleInputChange}
-                name='name'
-              />
+              <FormControl type='text' placeholder='Recipe Name' onChange={this.handleInputChange} name='name' />
             </FormGroup>
             <FormGroup controlId='formControlsTextarea'>
               <ControlLabel>Textarea</ControlLabel>
@@ -57,7 +51,6 @@ export default class AddRecipe extends React.Component {
                 componentClass='textarea'
                 placeholder='Enter ingredients (separated by commas)'
                 name='ingredients'
-                value={this.state.ingredients}
                 onChange={this.handleInputChange}
               />
             </FormGroup>
