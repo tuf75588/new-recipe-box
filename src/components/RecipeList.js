@@ -22,7 +22,12 @@ export default ({ recipes, updateRecipe }) => {
                 ))}
               </ListGroup>
               <ButtonToolbar>
-                <EditRecipe name={recipe.name} ingredients={recipe.ingredients} update={updateRecipe} />
+                <EditRecipe
+                  name={recipe.name}
+                  ingredients={recipe.ingredients}
+                  recipes={recipes}
+                  updateRecipe={updateRecipe.bind(this, recipe.id)}
+                />
                 <Button bsStyle='danger'>Delete Recipe</Button>
               </ButtonToolbar>
             </Panel.Body>

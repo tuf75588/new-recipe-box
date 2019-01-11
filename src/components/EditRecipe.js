@@ -26,12 +26,15 @@ export default class EditRecipe extends React.Component {
     });
   };
   handleSubmit = () => {
-    this.props.update();
-    this.setState({ show: false });
+    const { name, ingredients } = this.state;
+    const newRecipe = {
+      name,
+      ingredients
+    };
+    this.props.updateRecipe(newRecipe);
   };
   render() {
-    const { show, name, ingredients } = this.state;
-    console.log(this.props);
+    const { show } = this.state;
     return (
       <>
         <Modal show={show} onHide={this.close}>

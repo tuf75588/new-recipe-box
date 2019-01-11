@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RecipeList from './RecipeList';
 import AddRecipe from './AddRecipe';
+import uuidv4 from 'uuid';
 class RecipeContainer extends Component {
   state = {
     recipes: [
@@ -12,10 +13,15 @@ class RecipeContainer extends Component {
           '1/2 cup skim milk',
           '2 teaspoons honey',
           'pinch of cinnamon'
-        ]
+        ],
+        id: uuidv4()
       },
-      { name: 'Spaghetti', ingredients: ['Noodles', 'Tomato Sauce', 'Meatballs'] },
-      { name: 'Split Pea Soup', ingredients: ['1 pound split peas', '1 onion', '6 carrots', '4 ounces of ham'] }
+      { name: 'Spaghetti', ingredients: ['Noodles', 'Tomato Sauce', 'Meatballs'], id: uuidv4() },
+      {
+        name: 'Split Pea Soup',
+        ingredients: ['1 pound split peas', '1 onion', '6 carrots', '4 ounces of ham'],
+        id: uuidv4()
+      }
     ]
   };
   handleAddRecipe = (name, ingredients) => {
@@ -27,8 +33,10 @@ class RecipeContainer extends Component {
       };
     });
   };
-  handleUpdateRecipe = (name, ingredients) => {
-    console.log('updated!');
+  handleUpdateRecipe = (id, newRecipe) => {
+    //! getting recipe we need to edit
+    const target = [...this.state.recipes].find((el) => el.id === id);
+    console.log({ target, newRecipe, id });
   };
   render() {
     const { recipes } = this.state;
