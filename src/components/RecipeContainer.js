@@ -24,36 +24,79 @@ class RecipeContainer extends Component {
       }
     ]
   };
-  handleAddRecipe = (name, ingredients) => {
-    let newRecipe = { name, ingredients: [...ingredients.split(',')] };
+  componentDidMount() {
+    this.hydrateStateWithLocalStorage();
+  }
 
-    this.setState((state, props) => {
-      return {
-        recipes: [...state.recipes, newRecipe]
-      };
-    });
+  hydrateStateWithLocalStorage = () => {
+    for (let key in this.state) {
+      if (localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key);
+        //parse this value and set state on component render
+        try {
+          value = JSON.parse(value);
+          this.setState((state, props) => {
+            return {
+              recipes: value
+            };
+          });
+        } catch {
+          console.warn('an error occured');
+        }
+      }
+    }
+  };
+
+  getData = (key) => {
+    return JSON.parse(localStorage.getItem(key));
+  };
+
+  handleAddRecipe = (name, ingredients) => {
+    let newRecipe = { name, ingredients: [...ingredients.split(',')], id: uuidv4() };
+
+    this.setState(
+      (state, props) => {
+        return {
+          recipes: [...state.recipes, newRecipe]
+        };
+      },
+      () => {
+        localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
+      }
+    );
   };
   handleUpdateRecipe = (id, newRecipe) => {
     //! getting recipe we need to edit
-    console.log(newRecipe.ingredients);
-    // newRecipe.ingredients = [...newRecipe.ingredients.split(',')];
     const target = [...this.state.recipes].findIndex((el) => el.id === id);
     let newrecipes = [...this.state.recipes].map((element, index, arr) =>
       index === target ? (element = newRecipe) : element
     );
-
-    this.setState({ recipes: newrecipes });
+    this.setState(
+      (state, props) => {
+        return {
+          recipes: newrecipes
+        };
+      },
+      () => {
+        localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
+      }
+    );
   };
   handleDelete = (recipeId) => {
     const { recipes } = this.state;
     const filteredList = recipes.filter((recipe) => {
       return recipe.id !== recipeId;
     });
-    this.setState((state, props) => {
-      return {
-        recipes: filteredList
-      };
-    });
+    this.setState(
+      (state, props) => {
+        return {
+          recipes: filteredList
+        };
+      },
+      () => {
+        localStorage.setItem('recipes', JSON.stringify(filteredList));
+      }
+    );
   };
 
   render() {
